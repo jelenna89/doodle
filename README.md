@@ -6,7 +6,7 @@ Warning: All steps must be executed as ordered and full path to json data must b
 
 
 0. Add full path to data.json (there is file in project also, downloaded from task assignment
-1. kubectl create configmap initial-data --from-file=/Users/jstojanovic/doodle/doodle/data.json
+1. kubectl create configmap initial-data --from-file=data.json
 2. kubectl apply -f postgres-storage.yaml 
 3. kubectl apply -f postgres-configmap.yaml
 4. kubectl apply -f sql-init-scripts.yaml //this step will import data into db
@@ -35,6 +35,7 @@ For improvement:
 5. I couldn't find a way to search text with jsonb, so i used java streams. There is also one point to improve contains is case sensitive.
 6. Also this time filter can be done on more sophisticated way
 7. Tests...
+8. Yaml files should not be in project
 
 
 
