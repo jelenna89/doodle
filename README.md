@@ -19,7 +19,7 @@ Warning: All steps must be executed as ordered and full path to json data must b
 How to use:
 
 get ip:port -> url = minikube service doodle --url
-
+curl -v $(minikube service doodle --url)/doodle/users/John%20Doe/polls
 curl -v $(minikube service doodle --url)/doodle/users/polls?text=John
 curl -X GET -v $(minikube service doodle --url)/doodle/users/polls -d since="2017-01-25 12:30:01" 
 curl -X GET -v $(minikube service doodle --url)/doodle/users/polls -d until="2017-01-25 12:30:01"  
@@ -29,7 +29,7 @@ curl -X GET -v $(minikube service doodle --url)/doodle/users/polls -d from="2017
 For improvement:
 1. It was possible to solve postgres-*.yamls then doodle.yaml dependency with Readiness Probes, but there was not enough time.
 2. I decided to put data in pg because it has good support for json and i was more comfortable with, but improvement is definitely nosql db.
-3. Also i prefer to have some business key, say userId, but I didn't have enough time to implement it
+3. User with space in path - bad solution. Also i prefer to have some business key, say userId, but I didn't have enough time to implement it
 4. Spring boot, because you are using it and i wanted to try it for first time.
 5. I couldn't find a way to search text with jsonb, so i used java streams. There is also one point to improve contains is case sensitive.
 6. Also this time filter can be done on more sophisticated way
