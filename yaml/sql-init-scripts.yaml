@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sql-init-scripts
+data:
+  init-db.sh: |
+    echo "init-db.sh started"
+    sleep 1
+    tr -d '\n' < /var/lib/postgresql/initial-data/data.json > /var/lib/postgresql/data/output.json
+    psql -U postgresadmin -p 5432 postgresdb -c "create table polls_tmp(values text); copy polls_tmp from '/var/lib/postgresql/data/output.json' csv quote e'\x01' delimiter e'\x02'; CREATE SCHEMA doodle; CREATE TABLE doodle.polls (id bigserial NOT NULL,poll jsonb NULL,CONSTRAINT polls_pkey PRIMARY KEY (id)); insert into doodle.polls(poll) select value from polls_tmp, json_array_elements(polls_tmp.values::json) as elem;"
+  

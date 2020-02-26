@@ -1,0 +1,57 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: doodle
+  labels:
+    app: doodle
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 32201
+  selector:
+    app: doodle
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: doodle
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: doodle
+  template:
+    metadata:
+      labels:
+        app: doodle
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      containers:
+        - name: doodle
+          image: docker.io/jstojanovic/doodle:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          ports:
+            - name: app
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              #cpu: 800m # Removed because of throttling! https://mcrthr.com/kubernetes-cpu-limits
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            privileged: false
