@@ -5,7 +5,7 @@ Instructions for deploy:
 Warning: All steps must be executed as ordered and full path to json data must be provided. 
 
 
-0. Create writable dir "/Users/jstojanovic/doodle/testpg/mnt/data" and it must be empty
+0. Create dir "/Users/jstojanovic/doodle/testpg/mnt/data" (chmod 755) and it must be empty
 1. Provide full path to data.json file: kubectl create configmap initial-data --from-file=data.json
 2. kubectl apply -f postgres-storage.yaml 
 3. kubectl apply -f postgres-configmap.yaml
