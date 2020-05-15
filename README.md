@@ -1,6 +1,6 @@
 #  Doodle
 
-~~Instructions for deploy:
+Instructions for deploy:
 
 Warning: All steps must be executed as ordered and full path to json data must be provided. 
 
