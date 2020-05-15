@@ -15,7 +15,6 @@ Warning: All steps must be executed as ordered and full path to json data must b
 7. kubectl apply -f doodle.yaml
 
 
-
 How to use:
 
 get ip:port -> url = minikube service doodle --url
